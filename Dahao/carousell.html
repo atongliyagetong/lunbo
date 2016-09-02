@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+        *{margin:0;padding:0;}
+        *:before,*:after{
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box}
+        .listBox:before,.listBox:after{content: "";display: table}
+        .listBox:after{clear:both;}
+        .carouselBox{width: 100%;height: 360px;overflow: hidden;position: relative;}
+        .clickSpace{width: 1000px;height:100%;margin: auto}
+        .maskLeft,.maskRight{height: 100%;width: 50%;position: absolute;top: 0;background: rgba(255,255,255,0.3);z-index: 2;transition:opacity 0.5s ease 0s;}
+        .maskLeft{left:-500px;}
+        .maskRight{right:-500px;}
+        .carousel{width: 100%;height:100%;}
+        .listBox{min-width:20000px;height: 100%;margin-left: -200%;transition: transform 500ms ease 0s;background: rgba(1,1,1,.5);
+            -webkit-transform:translate(0,0);
+            -moz-transform:translate(0,0);
+            -ms-transform:translate(0,0);
+            -o-transform:translate(0,0);
+            transform:translate(0,0);
+        }
+        .item{
+            float: left;width: 1000px;height: 100%;
+        }
+        .item a{display: block;width: 100%;height: 100%}
+        .item:not(.active){
+            filter: url(blur.svg#blur);
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+            filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false);
+        }
+        .playBoxL,.playBoxR{width:100%;height: 100%;position: relative;}
+        .playPrev,.playNext{width: 80px;height: 80px;opacity: 0;position: absolute;top: 50%;transform: translateY(-50%);}
+        .playPrev{right: 0;background-image:url('http://i0.hdslb.com/u_user/travel/public/img/blog/index/left.png'); background-size: 100% 100%}
+        .playNext{left: 0;background-image:url('http://i0.hdslb.com/u_user/travel/public/img/blog/index/right.png');background-size: 100% 100%}
+        .active{}
+        @media screen and (min-width: 320px) {
+            .carouselBox{height: 82.28px}
+            .clickSpace,.item{width: 228.57px}
+            .maskLeft{left: -114.28px}
+            .maskRight{right: -114.28px}
+            .playPrev,.playNext{width:18.28px ;height:18.28px }
+            
+        }
+        @media screen and (min-width: 360px) {
+            .carouselBox{height: 92.57px}
+            .clickSpace,.item{width: 257.14px}
+            .maskLeft{left: -128.57px}
+            .maskRight{right: -128.57px}
+            .playPrev,.playNext{width:20.57px ;height:20.57px }
+          
+        }
+        @media screen and (min-width: 768px) {
+            .carouselBox{height: 197.48px}
+            .clickSpace,.item{width: 548.57px}
+            .maskLeft{left: -274.28px}
+            .maskRight{right: -274.28px}
+            .playPrev,.playNext{width:43.88px ;height:43.88px }
+       
+        }
+        @media screen and (min-width: 992px) {
+            .carouselBox{height: 255.08px}
+            .clickSpace,.item{width: 708.57px}
+            .maskLeft{left: -354.28px}
+            .maskRight{right: -354.28px}
+            .playPrev,.playNext{width:56.68px ;height:56.68px }
+        }
+        @media screen and (min-width: 1200px) {
+            .carouselBox{height: 308.57px}
+            .clickSpace,.item{width: 857.14px}
+            .maskLeft{left: -428.57px}
+            .maskRight{right: -428.57px}
+            .playPrev,.playNext{width:68.57px ;height:68.57px }
+        }
+        @media screen and (min-width: 1400px) {
+            .carouselBox{height:360px }
+            .clickSpace,.item{width:1000px }
+            .maskLeft{left: -500px}
+            .maskRight{right: -500px}
+            .playPrev,.playNext{width:80px ;height: 80px}
+        }
+    </style>
+</head>
+<body>
+    <div class="carouselBox">
+        <div class="maskLeft mask">
+            <div class="playBoxL">
+                <div class="playPrev"></div>
+            </div>
+        </div>
+        <div class="maskRight mask">
+            <div class="playBoxR">
+                <div class="playNext"></div>
+            </div>
+        </div>
+        <div class="carousel" style="touch-action:pan-y;-webkit-user-select:none;-webkit-user-drag:none;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);-moz-tap-highlight-color:rgba(0, 0, 0, 0);-ms-tap-highlight-color:rgba(0, 0, 0, 0);-o-tap-highlight-color:rgba(0, 0, 0, 0);tap-highlight-color:rgba(0, 0, 0, 0); ">
+            <div class="clickSpace">
+                <div class="listBox">
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 副本图片4 -->
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 副本图片5 -->
+                    <div class="item active"><a ><img  height="100%" ></a></div><!-- 图片1 -->
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 图片2 -->
+                     <div class="item"><a ><img  height="100%" ></a></div><!-- 图片3 -->
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 图片4 -->
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 图片5 -->
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 副本图片1 -->
+                    <div class="item"><a ><img  height="100%" ></a></div><!-- 副本图片2 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+        var carouselData=[
+        {
+            "src":"http://i0.hdslb.com/group1/M00/B7/0C/oYYBAFcHXSmAKAldAAKR0TIwTC0951.jpg",
+            "alt":"1",
+            "href":"http://dahao.de"
+        },
+        {
+            "src":"http://i0.hdslb.com/group1/M00/B7/09/oYYBAFcEvVaAbb61AAMCrHIU_DQ326.jpg",
+            "alt":"2",
+            "href":"http://dahao.de"
+        },
+        {
+            "src":"http://i0.hdslb.com/group1/M00/69/14/oYYBAFbX46mAeL56AARNsz2Jhs8026.jpg",
+            "alt":"3",
+            "href":"http://dahao.de"
+        },
+        {
+            "src":"http://i0.hdslb.com/group1/M00/5E/EB/oYYBAFbVcv6AGEw7AARD8EguBSQ058.jpg",
+            "alt":"4",
+            "href":"http://dahao.de"
+        },
+        {
+            "src":"http://i0.hdslb.com/group1/M00/F6/AC/oYYBAFbFu42AEseIAAJcNXX3yD0807.jpg",
+            "alt":"5",
+            "href":"http://dahao.de"
+        }
+        ];
+        var listBox=$('.carousel .listBox');
+        var items=$('.carousel .item');
+        var index = 1;
+        var loop = setInterval(function(){$('.playBoxR').trigger('click')},5000);
+        var itemNum=carouselData.length;
+        var transitioned=true;
+        var direction=true;//右true 左false
+        var scrollLength=0;
+        var scrollWidth=0;
+        var eventType='click'||'touch';
+        var rtime = new Date(1, 1, 2000, 12,00,00);
+        var timeout = false;
+        var delta = 200;
+        $(document).ready(function(){
+            setSRC();
+            scrollLength=parseInt($('.carousel .item').width());
+            scrollWidth=parseInt($('.carousel .item').width()); 
+        })
+        //填充图片路径
+        function setSRC(){
+            var img = $('.carousel img');
+            img.each(function(i,ele){
+                if(i==0){
+                    img.eq(i).attr({"src":carouselData[carouselData.length-2].src,"alt":carouselData[carouselData.length-2].alt});
+                    img.eq(i).parent('a').attr("href",carouselData[carouselData.length-2].href)
+                }
+                else if(i==1){
+                    img.eq(i).attr({"src":carouselData[carouselData.length-1].src,"alt":carouselData[carouselData.length-1].alt});
+                    img.eq(i).parent('a').attr("href",carouselData[carouselData.length-1].href)
+                }
+                else if(i==img.length-2){
+                    img.eq(i).attr({"src":carouselData[0].src,"alt":carouselData[0].alt});
+                    img.eq(i).parent('a').attr("href",carouselData[0].href)
+                }
+                else if(i==img.length-1){
+                    img.eq(i).attr({"src":carouselData[1].src,"alt":carouselData[1].alt});
+                    img.eq(i).parent('a').attr("href",carouselData[1].href)
+                }
+                else{
+                    img.eq(i).attr({"src":carouselData[i-2].src,"alt":carouselData[i-2].alt});
+                    img.eq(i).parent('a').attr("href",carouselData[i-2].href)
+                }
+            })
+        }
+        // 箭头显示
+        $('.carouselBox .maskLeft').on('mouseover',function(){
+            $(this).find('.playPrev').css('opacity',1);
+            $('.carouselBox .maskRight').find('.playNext').css('opacity',1);
+        })
+        $('.carouselBox .maskLeft').on('mouseleave',function(){
+            $(this).find('.playPrev').css('opacity',0);
+            $('.carouselBox .maskRight').find('.playNext').css('opacity',0);
+        })
+        $('.carouselBox .maskRight').on('mouseover',function(){
+            $(this).find('.playNext').css('opacity',1);
+            $('.carouselBox .maskLeft').find('.playPrev').css('opacity',1);
+        })
+        $('.carouselBox .maskRight').on('mouseleave',function(){
+            $(this).find('.playNext').css('opacity',0);
+            $('.carouselBox .maskLeft').find('.playPrev').css('opacity',0);
+        })
+        // 移动端箭头消失
+        $('.carouselBox .maskLeft').on('touchstart',function(event){
+            $(this).find('.playPrev').css('opacity',1);
+            $('.carouselBox .maskRight').find('.playNext').css('opacity',1);
+            var delay=setTimeout(function(){
+                $('.carouselBox .maskLeft').find('.playPrev').css('opacity',0);
+                $('.carouselBox .maskRight').find('.playNext').css('opacity',0);
+            },500)
+        })
+        $('.carouselBox .maskRight').on('touchstart',function(event){
+            $(this).find('.playNext').css('opacity',1);
+            $('.carouselBox .maskLeft').find('.playPrev').css('opacity',1);
+            var delay=setTimeout(function(){
+                $('.carouselBox .maskRight').find('.playNext').css('opacity',0);
+                $('.carouselBox .maskLeft').find('.playPrev').css('opacity',0);
+            },500)
+        })
+        //响应式支持
+        $(window).on('resize',function(){
+            rtime = new Date();
+            clearInterval(loop);
+            scrollLength=parseInt($('.carousel .item').width());
+            var n_scrollLength=parseInt($('.carousel .item').width());
+            if(n_scrollLength!=scrollWidth){
+                scrollWidth=n_scrollLength;
+                $('.carousel .listBox').css({transition:'none',transform:'translate3d(-'+((index-1)*n_scrollLength)+'px,0px,0px)'});
+                // $('.playBoxR').on('click',function(){playNext();})
+                // $('.playBoxL').on('click',function(){playPrev();})
+            }
+            if (timeout === false) {
+            timeout = true;
+            setTimeout(resizeend, delta);
+            }
+        })
+        function resizeend() {
+        if (new Date() - rtime < delta) {
+        setTimeout(resizeend, delta);
+        } else {
+        timeout = false;
+        loop=setInterval(function(){$('.playBoxR').trigger('click')},5000);
+        }
+        }
+        //动画结束后执行
+        $('.carousel .listBox').on('transitionend',function(){
+            transitioned=true;
+            if(direction){
+                if(index==itemNum+1){
+                    index=1;switched=true;
+                    $('.carousel .listBox').css({transition:'none',transform:'translate3d(0px,0px,0px)'});
+                    translate=0;
+                    $('.carousel .item.active').removeClass('active').siblings($('.carousel .item')).eq(2).addClass('active')
+                }
+            }
+            else{
+                if(index==0)
+                    {
+                        index=itemNum;switched=true;
+                        $('.carousel .listBox').css({transition:'none',transform:'translate3d(-'+4*scrollLength+'px,0px,0px)'});
+                        translate=-4*scrollLength;
+                        $('.carousel .item.active').removeClass('active').siblings($('.carousel .item')).eq(5).addClass('active');
+                    }
+            }
+                    eventOn();
+                    loop = setInterval(function(){
+                    $('.playBoxR').trigger('click')
+                    },5000);
+
+        })
+        //执行动画
+        function playNext(){
+            direction=true;
+            clearInterval(loop);
+            eventOff();
+            if(index<=itemNum){
+                    $('.carousel .listBox').css('transition','transform 500ms ease 0s');
+                    // console.log(translate,scrollLength);  
+                    $('.carousel .listBox').css('transform','translate3d(' + (translate - scrollLength) + 'px, 0px, 0px)');
+                    $('.carousel .item.active').removeClass('active').next($('carousel .item')).addClass('active');
+                    index++;}
+                    translate+=translate-scrollLength;
+            }
+        function playThis(){
+            clearInterval(loop);
+            eventOff();
+            $('.carousel .listBox').css('transition','transform 500ms ease 0s');
+            $('.carousel .listBox').css('transform','translate3d(' + translate  + 'px, 0px, 0px)');
+        }
+        function playPrev(){
+            direction=false;
+            clearInterval(loop);
+            eventOff();
+            if(index>=1){
+                $('.carousel .listBox').css('transition','transform 500ms ease 0s'); 
+                $('.carousel .listBox').css('transform','translate3d(' + (translate + scrollLength) + 'px, 0px, 0px)');
+                $('.carousel .item.active').removeClass('active').prev($('carousel .item')).addClass('active');
+                index--}
+                translate+=translate+scrollLength;
+        }
+        //响应事件
+        function getPosition(){
+            transformArray= $('.carousel .listBox').css('transform');
+            translateArray=transformArray.split(',');
+            translate=parseInt(translateArray[4]);
+        }
+        function getPositionNow(){
+            transformArray_n= $('.carousel .listBox').css('transform');
+            translateArray_n=transformArray.split(',');
+            translate_n=parseInt(translateArray[4]);
+        }
+        function clickNext(){
+            $('.playBoxR').on('click',function(){
+            getPosition();
+            playNext();
+        })
+        }
+        clickNext();
+        function clickPrev(){
+            $('.playBoxL').on('click',function(){
+            getPosition();
+            playPrev();
+        })
+        }
+        clickPrev();
+
+        function eventOff(){
+            $('.playBoxL').off('click');
+            $('.playBoxR').off('click');
+            $('.carouselBox .clickSpace').get(0).removeEventListener('touchstart',ts,false);
+            $('.carouselBox .clickSpace').get(0).removeEventListener('touchmove',tm,false);
+            $('.carouselBox .clickSpace').get(0).removeEventListener('touchend',te,false);
+        }
+        function eventOn(){
+            clickPrev();
+            clickNext();
+            $('.carouselBox .clickSpace').get(0).addEventListener('touchstart',ts,false);
+            $('.carouselBox .clickSpace').get(0).addEventListener('touchmove',tm,false);
+            $('.carouselBox .clickSpace').get(0).addEventListener('touchend',te,false);      
+        }
+        //移动端支持
+        var startX=0,
+            startY=0,
+            moveX=0,
+            moveY=0,
+            endX=0,
+            endY=0;
+            transformArray= $('.carousel .listBox').css('transform'),
+            translateArray=transformArray.split(','),
+            translate=parseInt(translateArray[4]),
+            translate_n=translate,
+            transformArray_n= $('.carousel .listBox').css('transform'),
+            translateArray_n=transformArray.split(','),
+            translate_n=parseInt(translateArray[4]),
+            switched=false;
+        function ts(event){
+            startX=event.touches[0].pageX;
+            startY=event.touches[0].pageY;
+            clearInterval(loop);
+            getPosition();
+        }
+        $('.carouselBox .clickSpace').get(0).addEventListener('touchstart',ts,false);
+        function tm(event){
+            getPositionNow();
+            if(translate_n==translate){
+            switched=false;
+            event.preventDefault();
+            clearInterval(loop);
+            moveX=event.touches[0].pageX;
+            moveY=event.touches[0].pageY;
+            var deltaX=moveX-startX;
+            var deltaY=moveY-startY;
+            $('.carousel .listBox').css('transition','none'); 
+            $('.carousel .listBox').css('transform','translate3d(' + (translate + deltaX) + 'px, 0px, 0px)');
+            }
+        }
+        $('.carouselBox .clickSpace').get(0).addEventListener('touchmove',tm,false);
+        function te(event){
+            getPositionNow();
+            if(translate_n==translate){
+            clearInterval(loop);
+            switched=false;
+            eventType='touch';
+            endX=event.changedTouches[0].pageX;
+            endY=event.changedTouches[0].pageY;
+            var deltaX=endX-startX;
+            var deltaY=endY-startY;
+            if(Math.abs(deltaX)>60)
+            {
+            if(deltaX<0)
+            {
+                eventOff();
+                playNext();//下一张
+            }
+            else{
+                eventOff();
+                playPrev();//上一张
+            }
+        }
+        else{//反弹回去
+            playThis();
+        }
+        }
+        }
+        $('.carouselBox .clickSpace').get(0).addEventListener('touchend',te,false);
+
+</script> 
+</html>
